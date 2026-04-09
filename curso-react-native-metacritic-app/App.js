@@ -1,11 +1,14 @@
 import { StatusBar } from 'expo-status-bar'
-import { Image, StyleSheet, View } from 'react-native'
-import { Navbar } from './Navbar'
+import { StyleSheet, View } from 'react-native'
+import AnimeList from './AnimeList'
+
+//para aprender react-native lo que vamos a hacer es una app que muestre en pantalla peliculas o juegos o algo
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Navbar />
+      <StatusBar style='light' />
+      <AnimeList />
     </View>
   )
 }
@@ -14,7 +17,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#2d2d2d',
-    alignItems: 'center',
+    maxWidth: 1440,
     justifyContent: 'center',
+    alignContent: 'center',
   },
 })
