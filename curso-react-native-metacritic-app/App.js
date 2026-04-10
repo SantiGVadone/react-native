@@ -1,15 +1,18 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View } from 'react-native'
-import AnimeList from './AnimeList'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import Main from './Components/Main'
 
 //para aprender react-native lo que vamos a hacer es una app que muestre en pantalla peliculas o juegos o algo
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style='light' />
-      <AnimeList />
-    </View>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        <StatusBar style='light' />
+        <Main />
+      </View>
+    </SafeAreaProvider>
   )
 }
 
@@ -17,7 +20,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#2d2d2d',
-    maxWidth: 1440,
+    maxWidth: '100%',
     justifyContent: 'center',
     alignContent: 'center',
   },
