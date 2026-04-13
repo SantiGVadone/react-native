@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Text, View, StyleSheet, TouchableHighlight, Image } from 'react-native'
 import { Textos, Titulos } from './const'
+import { useFonts } from 'expo-font'
 
 export const Welcome = () => {
   const [index, setIndex] = useState(1)
@@ -8,18 +9,24 @@ export const Welcome = () => {
     setIndex(index + 1)
     if (index >= 5) {
       setIndex(0)
+      //aca deberia ser un Navigate to -> HomePage, o algo asi
     }
+  }
+
+  const [fontsLoaded] = useFonts({
+    poppins: require('./assets/fonts/poppins.ttf'),
+  })
+
+  if (!fontsLoaded) {
+    return null
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.welcomeData}>
-        <Text style={styles.welcome}>Bienvenido a MiTurno</Text>
+      <View style={styles.appData}>
         <Image
-          source={{
-            uri: 'https://w7.pngwing.com/pngs/568/763/png-transparent-apple-logo-apple-logo-company-heart-logo.png',
-          }}
-          style={{ width: 200, height: 200, resizeMode: 'contain' }}
+          source={require('./assets/sin_fondo.png')}
+          style={{ height: 200, resizeMode: 'contain' }}
         />
       </View>
       <View style={styles.info}>
@@ -45,28 +52,35 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    paddingVertical: 20,
   },
-  welcomeData: {
+  appData: {
     alignItems: 'center',
   },
-  welcome: {
-    textAlign: 'center',
-    fontSize: 40,
-    color: 'blue',
-  },
   info: {
-    justifyContent: 'center',
+    flex: 1,
+    padding: 20,
+    justifyContent: 'space-evenly',
   },
   titulos: {
     textAlign: 'center',
-    fontSize: 28,
-    color: '#b2c6e0',
-    paddingBottom: 10,
+    fontSize: 40,
+    fontFamily: 'poppins',
+    fontWeight: 900,
+    textShadowColor: 'rgba(0, 48, 80, 0.5)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+    color: '#09f',
   },
   textos: {
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 22,
     color: '#d2d2d2',
+    marginBottom: 45,
+    fontFamily: 'poppins',
+    textShadowColor: '#d2d2d250',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
   },
   button: {
     alignItems: 'center',
@@ -77,5 +91,9 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: '#09f',
     marginHorizontal: 50,
+    fontFamily: 'poppins',
+    textShadowColor: 'rgba(0, 48, 80, 0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
   },
 })
