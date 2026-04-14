@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 // import Main from './Components/Main'
-import { Welcome } from './Welcome'
+//import { Welcome } from './Welcome'
+import { CalendarPage } from './Components/CalendarPage'
 //para aprender react-native lo que vamos a hacer es una app que muestre en pantalla peliculas o juegos o algo
 
 export default function App() {
@@ -11,7 +12,8 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style='light' />
         {/*<Main /> */}
-        <Welcome />
+        {/*<Welcome />*/}
+        <CalendarPage />
       </View>
     </SafeAreaProvider>
   )
