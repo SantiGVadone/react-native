@@ -15,3 +15,10 @@
 - Aprendi a usar una FlatList
 - Aprendi a usar bien el SafeArea, con las constantes de react-native
 - El safearea se usa como si fuese un provider, osea es un contexto igual que cuaquier otro, y hay que envolver la app en eso
+
+# PRACTICAS POR MI CUENTA
+
+- hacer un Navbar
+- hacer un header
+- importar iconos
+- importar fonts
