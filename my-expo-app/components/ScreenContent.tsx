@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { HomePage } from './HomePage';
+import { HomePage } from './Home';
 import { Navbar } from './Navbar';
 
 export const ScreenContent: React.FC = () => {
