@@ -3,14 +3,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Stock } from '../navigation/screens/Stock'
 import { Profile } from '../navigation/screens/Profile'
 import { StockOptions } from './screens/StockOptions'
+import { ProductDetail } from './screens/ProductDetail'
 
 const RootStack = createNativeStackNavigator({
   screens: {
     Stock: {
       screen: Stock,
       options: {
-        title: 'Stock',
-        headerTitleAlign: 'center',
+        headerShown: false,
       },
     },
     Profile: {
@@ -25,6 +25,12 @@ const RootStack = createNativeStackNavigator({
       options: {
         title: 'Opciones Screen',
         headerTitleAlign: 'center',
+      },
+    },
+    ProductDetail: {
+      screen: ProductDetail,
+      options: {
+        headerShown: false,
       },
     },
   },

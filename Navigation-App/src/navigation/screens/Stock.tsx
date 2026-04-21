@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import productos from '../../mocks/products.json'
 import { StatusBar } from 'expo-status-bar'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 interface Product {
   id: string
@@ -16,42 +17,50 @@ export function Stock() {
   const [stock, setStock] = useState<Product[]>(productos)
 
   return (
-    <View className='flex-1 bg-gray-200 items-center'>
-      <StatusBar style='dark' />
-      <View className=' flex-1 w-full mt-1'>
-        <FlatList
-          data={stock}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View className='bg-white p-4 mb-3 rounded-lg shadow-sm border-l-4 border-gray-900'>
-              <View className='flex-row justify-between items-center'>
-                <Text className='text-xl font-bold text-gray-800'>
-                  {item.nombre}
-                </Text>
-                <Text className='text-gray-600 font-mono'>
-                  Cant: {item.cantidad}
-                </Text>
-              </View>
-              <Text className='text-gray-500 mt-1'>{item.descripcion}</Text>
-            </View>
-          )}
-        />
-      </View>
+    <SafeAreaView className='flex-1 bg-white'>
+      <View className='flex-1 bg-gray-200 items-center'>
+        <StatusBar style='dark' />
+        <View className=' flex-1 w-full mt-1 '>
+          <FlatList
+            contentContainerStyle={{ paddingBottom: 55 }}
+            data={stock}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ProductDetail', { product: item })
+                }
+              >
+                <View className='bg-white p-4 mb-3 rounded-lg shadow-sm border-l-4 border-gray-900'>
+                  <View className='flex-row justify-between items-center'>
+                    <Text className='text-xl font-bold text-gray-800'>
+                      {item.nombre}
+                    </Text>
+                    <Text className='text-gray-600 font-mono'>
+                      Cant: {item.cantidad}
+                    </Text>
+                  </View>
+                  <Text className='text-gray-500 mt-1'>{item.descripcion}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
 
-      <View className='absolute bottom-10 right-6 left-6'>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          className='bg-gray-900 h-14 rounded-2xl items-center justify-center shadow-lg'
-          onPress={() => {
-            // Aquí podrías navegar a una pantalla de "Agregar Producto"
-            navigation.navigate('StockOptions')
-          }}
-        >
-          <Text className='color-white font-bold text-lg'>
-            Gestionar Inventario
-          </Text>
-        </TouchableOpacity>
+        <View className='absolute bottom-3 right-6 left-6'>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            className='bg-gray-900 h-14 rounded-full items-center justify-center shadow-lg'
+            onPress={() => {
+              navigation.navigate('StockOptions')
+            }}
+          >
+            <Text className='color-white font-bold text-lg'>
+              Gestionar Inventario
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
