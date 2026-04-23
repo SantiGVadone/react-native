@@ -1,4 +1,3 @@
-import { StaticScreenProps } from '@react-navigation/native'
 import { View, Text } from 'react-native'
 
 export function Profile() {
