@@ -47,16 +47,16 @@ export function Stock() {
           />
         </View>
 
-        <View className='absolute bottom-3 right-6 left-6'>
+        <View className='absolute bottom-6 right-6 w-fit rounded-full'>
           <TouchableOpacity
             activeOpacity={0.7}
-            className='bg-gray-900 h-14 rounded-full items-center justify-center shadow-lg'
+            className='bg-blue-500 rounded-full'
             onPress={() => {
-              navigation.navigate('StockOptions')
+              navigation.navigate('AddProduct')
             }}
           >
-            <Text className='color-white font-bold text-lg'>
-              Gestionar Inventario
+            <Text className='color-white text-center text-5xl my-2 mx-5'>
+              +
             </Text>
           </TouchableOpacity>
         </View>
