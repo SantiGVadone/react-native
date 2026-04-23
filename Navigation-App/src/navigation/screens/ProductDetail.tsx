@@ -1,8 +1,10 @@
 import { Text, View, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Feather from '@expo/vector-icons/Feather'
+import { useNavigation } from '@react-navigation/native'
 
 export const ProductDetail = ({ route }: any) => {
+  const navigation = useNavigation()
   const { product } = route.params
   return (
     <SafeAreaView className='flex-1'>
@@ -11,7 +13,7 @@ export const ProductDetail = ({ route }: any) => {
         <View className='w-full items-end p-4'>
           <TouchableOpacity
             onPress={() => {
-              console.log('Abrir un PoP para editar')
+              ;(navigation.navigate as any)('EditProduct', { product })
             }}
           >
             <Feather name='edit' size={30} color='black' />

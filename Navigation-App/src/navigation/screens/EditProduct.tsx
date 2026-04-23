@@ -15,26 +15,22 @@ interface Product {
   cantidad: number
 }
 
-export function AddProduct() {
+export function EditProduct({ route }: any) {
+  const { product } = route.params
+  const [newProduct, setNewProduct] = useState(product)
   const navigation = useNavigation()
-  const [product, setProduct] = useState<Product>({
-    id: '',
-    nombre: '',
-    descripcion: '',
-    cantidad: 0,
-  })
 
   const handleSubmit = () => {
-    if (!product.nombre || !product.descripcion || !product.cantidad) {
+    if (!newProduct.nombre || !newProduct.descripcion || !newProduct.cantidad) {
       alert('Necesitas completar todos los campos')
       navigation.goBack()
       return
-    } else {
-      console.log(
-        'Tengo que darle un ID y agregar a la db esto: -------------------',
-      )
-      console.log(product)
     }
+    console.log('Tengo que remplazar esto:------')
+    console.log('Producto que llega', product)
+    console.log('Por esto: ---------------------')
+    console.log('Producto que devuelve', newProduct)
+    navigation.goBack()
   }
   return (
     <KeyboardAvoidingView className='flex-1'>
@@ -45,26 +41,28 @@ export function AddProduct() {
               placeholder='Nombre'
               autoCorrect={false}
               showSoftInputOnFocus={true}
-              className='h-16 m-4 border-b-2 text-center text-3xl w-3/4'
-              onChangeText={(text) => setProduct({ ...product, nombre: text })}
-              value={product.nombre}
+              className='h-16 m-4 border-b-2 text-center text-2xl w-3/4'
+              onChangeText={(text) =>
+                setNewProduct({ ...newProduct, nombre: text })
+              }
+              value={newProduct.nombre}
             />
             <TextInput
               placeholder='Descripción'
               autoCorrect={false}
-              className='h-16 m-4 border-b-2 text-center text-3xl w-3/4'
+              className='h-16 m-4 border-b-2 text-center text-2xl w-3/4'
               onChangeText={(text) =>
-                setProduct({ ...product, descripcion: text })
+                setNewProduct({ ...newProduct, descripcion: text })
               }
-              value={product.descripcion}
+              value={newProduct.descripcion}
             />
             <TextInput
               placeholder='Cantidad'
-              className='h-16 m-4 border-b-2 text-center text-3xl w-3/4'
+              className='h-16 m-4 border-b-2 text-center text-2xl w-3/4'
               onChangeText={(text) =>
-                setProduct({ ...product, cantidad: parseInt(text) })
+                setNewProduct({ ...newProduct, cantidad: parseInt(text) })
               }
-              value={product.cantidad.toString()}
+              value={newProduct.cantidad.toString()}
             />
           </View>
           <View className='mt-4 flex-row justify-evenly'>
@@ -73,7 +71,7 @@ export function AddProduct() {
               className='bg-blue-400 rounded-3xl'
             >
               <Text className='color-gray-800 font-bold text-2xl p-4 text-center'>
-                Agregar
+                Editar
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

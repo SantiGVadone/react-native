@@ -1,59 +1,27 @@
 # App de gestion de Stock
 
->[!NOTE]
->Esta APP esta echa con fines educativos y de practica
+> [!NOTE]
+> Esta APP esta echa con fines educativos y de practica
 
-import React from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  TouchableWithoutFeedback,
-  Keyboard
-} from 'react-native';
+# TO DO (menos importante)
 
-const App = () => {
-  return (
-    // 1. KeyboardAvoidingView como contenedor principal
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
-      {/* 2. ScrollView para permitir scroll si el contenido es grande */}
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.inner}>
-            <TextInput placeholder="Usuario" style={styles.input} />
-            <TextInput placeholder="Contraseña" style={styles.input} />
-            <View style={styles.btnContainer} />
-          </View>
-        </TouchableWithoutFeedback>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
-};
+- Que el boton de editar en la pantalla de ProductDetail este en el header
+- Agregar el boton de eliminar producto, ya sea en la pantalla de ProductDetail o en la pantalla de Stock(con algun movimiento de izquierda a derecha)
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollContainer: {
-    flexGrow: 1,
-  },
-  inner: {
-    padding: 24,
-    flex: 1,
-    justifyContent: 'space-around',
-  },
-  input: {
-    height: 40,
-    borderColor: '#000000',
-    borderBottomWidth: 1,
-    marginBottom: 36,
-  },
-});
+# TO DO (FIX)
 
-export default App;
+- Revisar alguna mejora para los nombres y las descripciones largas en la pantalla de AddProduct
+- Revisar como se comporta el campo de cantidad en la pantalla de AddProduct
+- Revisar alguna mejora para los nombres y las descripciones largas en la pantalla de EditProduct
+- Revisar como se comporta el campo de cantidad en la pantalla de EditProduct
+- Revisar como se comporta la App con el teclado (que no tape nada, y que se ajuste al despliegue de este)
+- Revisar el comportamiento de la pantalla de Stock con los nombres o las descripciones largas (que no se agrande la card, que simplemente se pongan los '...' cuando no entre en el espacio que ya esta fijado)
+
+# Futura version 1.1
+
+- Agregar el tema de las imagenes, que se puedan cargar fotos de cada Producto
+- Agregar un motor de busqueda en la pantalla de Stock
+
+# Futura version 1.2
+
+- Agregar el escaneo del codigo de barra de productos, por medio de la camara
