@@ -30,7 +30,9 @@ const RootStack = createNativeStackNavigator({
       screen: AddProduct,
       options: {
         title: 'Agregar Producto',
-        presentation: 'modal',
+        presentation: 'modal', //aca se le puede poner transparentModal TENGO QUE PROBARLO con un headerShown: false 
+        // a la modal screen le damos un bg-transparent y le ponemos un 0.5 de densidad capaz para que quede facha el fondo, osea la pantalla que va a estar abajo
+        // y dentro de esa pantalla modal, tiene que haber una View, en la cual va a estar todo el Form, con un bg-white y algun padding y margin, ademas obviamente tiene que estar centrado
       },
     },
   },
