@@ -25,3 +25,8 @@
 # Futura version 1.2
 
 - Agregar el escaneo del codigo de barra de productos, por medio de la camara
+
+# Info
+
+- Para el boton de atras, se puede desactivar y activar mediante un navigation.options({leftHeader: false}) o algo asi , lo mismo con el titulo y eso.
+- Tambien para poner el boton de editar en el header se hace con un options.header(rightHeader: bottonEdit o algo asi)
