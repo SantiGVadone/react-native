@@ -16,6 +16,9 @@ expo-env.d.ts
 *.p12
 *.key
 *.mobileprovision
+# Carpeta de compilación nativa
+/android
+/ios
 
 # Metro
 .metro-health-check*
