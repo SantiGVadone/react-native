@@ -17,12 +17,11 @@ export function Stock() {
   const [stock, setStock] = useState<Product[]>(productos)
 
   return (
-    <SafeAreaView className='flex-1 bg-white'>
+    <SafeAreaView className='flex-1 bg-gray-200'>
       <View className='flex-1 bg-gray-200 items-center'>
         <StatusBar style='dark' />
-        <View className=' flex-1 w-full mt-1 '>
+        <View className=' flex-1 w-full'>
           <FlatList
-            contentContainerStyle={{ paddingBottom: 55 }}
             data={stock}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
@@ -31,16 +30,26 @@ export function Stock() {
                   navigation.navigate('ProductDetail', { product: item })
                 }
               >
-                <View className='bg-white p-4 mb-3 rounded-lg shadow-sm border-l-4 border-gray-900'>
+                <View className='bg-white p-4 m-1 rounded-lg shadow-sm border-l-4 border-gray-900'>
                   <View className='flex-row justify-between items-center'>
-                    <Text className='text-xl font-bold text-gray-800'>
+                    <Text
+                      className='text-xl font-bold flex-1 text-gray-800 mr-3'
+                      numberOfLines={1} //hace que el texto no ocupe mas de una linea
+                      ellipsizeMode='tail'
+                    >
                       {item.nombre}
                     </Text>
                     <Text className='text-gray-600 font-mono'>
                       Cant: {item.cantidad}
                     </Text>
                   </View>
-                  <Text className='text-gray-500 mt-1'>{item.descripcion}</Text>
+                  <Text
+                    className='text-gray-500 mt-1 text-sm'
+                    numberOfLines={1}
+                    ellipsizeMode='tail'
+                  >
+                    {item.descripcion}
+                  </Text>
                 </View>
               </TouchableOpacity>
             )}

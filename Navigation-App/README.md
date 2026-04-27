@@ -5,17 +5,22 @@
 
 # TO DO (menos importante)
 
-- Que el boton de editar en la pantalla de ProductDetail este en el header
-- Agregar el boton de eliminar producto, ya sea en la pantalla de ProductDetail o en la pantalla de Stock(con algun movimiento de izquierda a derecha)
+- ✅ Que el boton de editar en la pantalla de ProductDetail este en el header
+- ⚠️ Agregar el boton de eliminar producto, ya sea en la pantalla de ProductDetail o en la pantalla de Stock(con algun movimiento de izquierda a derecha)
 
 # TO DO (FIX)
 
-- Revisar alguna mejora para los nombres y las descripciones largas en la pantalla de AddProduct
-- Revisar como se comporta el campo de cantidad en la pantalla de AddProduct
-- Revisar alguna mejora para los nombres y las descripciones largas en la pantalla de EditProduct
-- Revisar como se comporta el campo de cantidad en la pantalla de EditProduct
-- Revisar como se comporta la App con el teclado (que no tape nada, y que se ajuste al despliegue de este)
-- Revisar el comportamiento de la pantalla de Stock con los nombres o las descripciones largas (que no se agrande la card, que simplemente se pongan los '...' cuando no entre en el espacio que ya esta fijado)
+- Estos fueron todos completados con el overflow-x-scroll
+
+* ✅ Revisar alguna mejora para los nombres y las descripciones largas en la pantalla de AddProduct
+* ✅ Revisar como se comporta el campo de cantidad en la pantalla de AddProduct
+* ✅ Revisar alguna mejora para los nombres y las descripciones largas en la pantalla de EditProduct
+* ✅ Revisar como se comporta el campo de cantidad en la pantalla de EditProduct
+* ✅ Revisar como se comporta la App con el teclado (que no tape nada, y que se ajuste al despliegue de este)
+
+- Este fue solucionado usando la prop numberOfNails={} la cual dice cuantas lineas tiene que ocupar el text
+
+* ✅ Revisar el comportamiento de la pantalla de Stock con los nombres o las descripciones largas (que no se agrande la card, que simplemente se pongan los '...' cuando no entre en el espacio que ya esta fijado)
 
 # Futura version 1.1
 
@@ -30,3 +35,4 @@
 
 - Para el boton de atras, se puede desactivar y activar mediante un navigation.options({leftHeader: false}) o algo asi , lo mismo con el titulo y eso.
 - Tambien para poner el boton de editar en el header se hace con un options.header(rightHeader: bottonEdit o algo asi)
+- - Para el boton de eliminar tengo que chusmear la dependencia react-native-swipeable de npm
