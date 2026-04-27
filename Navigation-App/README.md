@@ -2,11 +2,14 @@
 
 > [!NOTE]
 > Esta APP esta echa con fines educativos y de practica
+> La app actualmente esta en la version BETA, ya que faltan unos pasos para tener la v 1.0
 
 # TO DO (menos importante)
 
 - ✅ Que el boton de editar en la pantalla de ProductDetail este en el header
-- ⚠️ Agregar el boton de eliminar producto, ya sea en la pantalla de ProductDetail o en la pantalla de Stock(con algun movimiento de izquierda a derecha)
+- ✅ Agregar el boton de eliminar producto, ya sea en la pantalla de ProductDetail o en la pantalla de Stock(con algun movimiento de izquierda a derecha)
+
+* ⚠️ el boton esta echo, pero hay que ver si anda bien corriendolo desde npx expo run:android --device, porque creo que tengo porblemas de compatibilidad en las dependencias
 
 # TO DO (FIX)
 
@@ -22,10 +25,16 @@
 
 * ✅ Revisar el comportamiento de la pantalla de Stock con los nombres o las descripciones largas (que no se agrande la card, que simplemente se pongan los '...' cuando no entre en el espacio que ya esta fijado)
 
+# TO DO for the 1.0.0 version
+
+- Que la app no mande un console.log(), sino que realmente Funcione el CREATE
+- Que la app no mande un console.log(), sino que realmente Funcione el UPDATE
+- Generar ID's para los productos, aunquesea en orden numerico por el momento
+
 # Futura version 1.1
 
-- Agregar el tema de las imagenes, que se puedan cargar fotos de cada Producto
 - Agregar un motor de busqueda en la pantalla de Stock
+- Agregar el tema de las imagenes, que se puedan cargar fotos de cada Producto
 
 # Futura version 1.2
 

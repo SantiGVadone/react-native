@@ -2,12 +2,21 @@ import { Text, View, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Feather from '@expo/vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
+import productos from '../../mocks/products.json'
+
+interface Product {
+  id: string
+  nombre: string
+  descripcion: string
+  cantidad: number
+}
 
 export const ProductDetail = ({ route }: any) => {
   const navigation = useNavigation()
   const { product } = route.params
+  const [stock, setStock] = useState<Product[]>(productos)
 
   useLayoutEffect(() => {
     navigation.setOptions({

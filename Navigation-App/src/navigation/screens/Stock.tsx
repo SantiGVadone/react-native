@@ -4,6 +4,7 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import productos from '../../mocks/products.json'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
 
 interface Product {
   id: string
@@ -16,6 +17,22 @@ export function Stock() {
   const navigation = useNavigation<any>() //aca en ves del any tendria que ir un <NativeStackNavigationProp<RootStackParamList>> donde el RootStackParamList seria un type creado e importado con los datos que va a recibir la pantalla profile
   const [stock, setStock] = useState<Product[]>(productos)
 
+  const handleEliminar = (id: string) => {
+    const nuevoStock = stock.filter((item) => item.id !== id)
+    setStock(nuevoStock)
+  }
+
+  const renderRightActions = (id: string) => {
+    return (
+      <TouchableOpacity
+        onPress={() => handleEliminar(id)}
+        className='bg-red-500 justify-center items-center w-24 m-1 rounded-r-lg'
+      >
+        <Text className='text-white font-bold'>Eliminar</Text>
+      </TouchableOpacity>
+    )
+  }
+
   return (
     <SafeAreaView className='flex-1 bg-gray-200'>
       <View className='flex-1 bg-gray-200 items-center'>
@@ -25,33 +42,36 @@ export function Stock() {
             data={stock}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('ProductDetail', { product: item })
-                }
-              >
-                <View className='bg-white p-4 m-1 rounded-lg shadow-sm border-l-4 border-gray-900'>
-                  <View className='flex-row justify-between items-center'>
+              <Swipeable renderRightActions={() => renderRightActions(item.id)}>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() =>
+                    navigation.navigate('ProductDetail', { product: item })
+                  }
+                >
+                  <View className='bg-white p-4 m-1 rounded-lg shadow-sm border-l-4 border-gray-900'>
+                    <View className='flex-row justify-between items-center'>
+                      <Text
+                        className='text-xl font-bold flex-1 text-gray-800 mr-3'
+                        numberOfLines={1} //hace que el texto no ocupe mas de una linea
+                        ellipsizeMode='tail'
+                      >
+                        {item.nombre}
+                      </Text>
+                      <Text className='text-gray-600 font-mono'>
+                        Cant: {item.cantidad}
+                      </Text>
+                    </View>
                     <Text
-                      className='text-xl font-bold flex-1 text-gray-800 mr-3'
-                      numberOfLines={1} //hace que el texto no ocupe mas de una linea
+                      className='text-gray-500 mt-1 text-sm'
+                      numberOfLines={1}
                       ellipsizeMode='tail'
                     >
-                      {item.nombre}
-                    </Text>
-                    <Text className='text-gray-600 font-mono'>
-                      Cant: {item.cantidad}
+                      {item.descripcion}
                     </Text>
                   </View>
-                  <Text
-                    className='text-gray-500 mt-1 text-sm'
-                    numberOfLines={1}
-                    ellipsizeMode='tail'
-                  >
-                    {item.descripcion}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </Swipeable>
             )}
           />
         </View>
