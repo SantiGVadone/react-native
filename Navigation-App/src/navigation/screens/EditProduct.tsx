@@ -9,10 +9,11 @@ import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 interface Product {
-  id: string
-  nombre: string
-  descripcion: string
-  cantidad: number
+  id: number
+  name: string
+  description: string
+  quantity: number
+  category: string
 }
 
 export function EditProduct({ route }: any) {
@@ -20,16 +21,34 @@ export function EditProduct({ route }: any) {
   const [newProduct, setNewProduct] = useState(product)
   const navigation = useNavigation()
 
-  const handleSubmit = () => {
-    if (!newProduct.nombre || !newProduct.descripcion || !newProduct.cantidad) {
-      alert('Necesitas completar todos los campos')
-      navigation.goBack()
-      return
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(
+        `http://192.168.1.39:3000/api/products/${product.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: product.name,
+            description: product.description,
+            quantity: Number(product.quantity),
+            category: product.category,
+          }),
+        },
+      )
+      if (response.ok) {
+        alert('Producto editado con éxito')
+        navigation.goBack()
+      } else {
+        const errorDetail = await response.json()
+        console.log('Error al guardar en la base de datos', errorDetail)
+      }
+    } catch (error) {
+      console.error(error)
+      alert('No se pudo conectar con la notebook')
     }
-    console.log('Tengo que remplazar esto:------')
-    console.log('Producto que llega', product)
-    console.log('Por esto: ---------------------')
-    console.log('Producto que devuelve', newProduct)
     navigation.goBack()
   }
   return (
@@ -43,18 +62,18 @@ export function EditProduct({ route }: any) {
               showSoftInputOnFocus={true}
               className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
               onChangeText={(text) =>
-                setNewProduct({ ...newProduct, nombre: text })
+                setNewProduct({ ...newProduct, name: text })
               }
-              value={newProduct.nombre}
+              value={newProduct.name}
             />
             <TextInput
               placeholder='Descripción'
               autoCorrect={false}
               className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
               onChangeText={(text) =>
-                setNewProduct({ ...newProduct, descripcion: text })
+                setNewProduct({ ...newProduct, description: text })
               }
-              value={newProduct.descripcion}
+              value={newProduct.description}
             />
             <TextInput
               placeholder='Cantidad'
@@ -62,13 +81,13 @@ export function EditProduct({ route }: any) {
               onChangeText={(text) => {
                 const valor = text === '' ? 0 : parseInt(text)
                 if (!isNaN(valor)) {
-                  setNewProduct({ ...newProduct, cantidad: valor })
+                  setNewProduct({ ...newProduct, quantity: valor })
                 }
               }}
               value={
-                newProduct.cantidad === 0 && newProduct.cantidad !== undefined
+                newProduct.quantity === 0 && newProduct.quantity !== undefined
                   ? ''
-                  : newProduct.cantidad.toString()
+                  : newProduct.quantity
               }
             />
           </View>

@@ -4,19 +4,18 @@ import Feather from '@expo/vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
-import productos from '../../mocks/products.json'
 
 interface Product {
-  id: string
-  nombre: string
-  descripcion: string
-  cantidad: number
+  id: number
+  name: string
+  description: string
+  quantity: number
+  category: string
 }
 
 export const ProductDetail = ({ route }: any) => {
   const navigation = useNavigation()
   const { product } = route.params
-  const [stock, setStock] = useState<Product[]>(productos)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,7 +35,7 @@ export const ProductDetail = ({ route }: any) => {
 
   return (
     <SafeAreaView className='flex-1'>
-      <ScrollView>
+      <ScrollView className='flex-1'>
         <View className='flex-1'>
           {/* Aca va la imagen */}
           <View className='w-full items-center'>
@@ -52,12 +51,12 @@ export const ProductDetail = ({ route }: any) => {
             {/*Conjunto de nombre y descripcion*/}
             <View className='items-center'>
               <Text className='color-gray-800 text-4xl font-bold text-center mb-5'>
-                {product.nombre}
+                {product.name}
               </Text>
               <View className='w-full items-center'>
                 <View className='w-5/6 '>
                   <Text className='text-2xl text-center'>
-                    {product.descripcion}
+                    {product.description}
                   </Text>
                 </View>
               </View>
@@ -69,7 +68,7 @@ export const ProductDetail = ({ route }: any) => {
                   <Text className='text-5xl'> - </Text>
                 </TouchableOpacity>
                 <Text className='text-4xl font-bold px-8'>
-                  {product.cantidad}
+                  {product.quantity}
                 </Text>
                 <TouchableOpacity onPress={() => console.log('Cantidad + 1')}>
                   <Text className='text-5xl text-center rounded-full'> + </Text>

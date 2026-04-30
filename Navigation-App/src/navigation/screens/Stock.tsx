@@ -1,38 +1,45 @@
 import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
-import productos from '../../mocks/products.json'
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
+import { useStock } from '../../hooks/useStock'
 
 interface Product {
   id: string
-  nombre: string
-  descripcion: string
-  cantidad: number
+  name: string
+  description: string
+  quantity: number
+  category: string
 }
 
 export function Stock() {
   const navigation = useNavigation<any>() //aca en ves del any tendria que ir un <NativeStackNavigationProp<RootStackParamList>> donde el RootStackParamList seria un type creado e importado con los datos que va a recibir la pantalla profile
-  const [stock, setStock] = useState<Product[]>(productos)
-
-  const handleEliminar = (id: string) => {
-    const nuevoStock = stock.filter((item) => item.id !== id)
-    setStock(nuevoStock)
-  }
+  const { stock, loading, error, removeProduct, refresh } = useStock()
 
   const renderRightActions = (id: string) => {
     return (
       <TouchableOpacity
-        onPress={() => handleEliminar(id)}
+        onPress={() => removeProduct(id)}
         className='bg-red-500 justify-center items-center w-24 m-1 rounded-r-lg'
       >
         <Text className='text-white font-bold'>Eliminar</Text>
       </TouchableOpacity>
     )
   }
-
+  if (loading) {
+    return (
+      <View className='flex-1 justify-center items-center bg-gray-200'>
+        <ActivityIndicator size='large' color='#3b82f6' />
+      </View>
+    )
+  }
   return (
     <SafeAreaView className='flex-1 bg-gray-200'>
       <View className='flex-1 bg-gray-200 items-center'>
@@ -40,7 +47,9 @@ export function Stock() {
         <View className=' flex-1 w-full'>
           <FlatList
             data={stock}
-            keyExtractor={(item) => item.id}
+            onRefresh={refresh}
+            refreshing={loading}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <Swipeable renderRightActions={() => renderRightActions(item.id)}>
                 <TouchableOpacity
@@ -56,10 +65,10 @@ export function Stock() {
                         numberOfLines={1} //hace que el texto no ocupe mas de una linea
                         ellipsizeMode='tail'
                       >
-                        {item.nombre}
+                        {item.name}
                       </Text>
                       <Text className='text-gray-600 font-mono'>
-                        Cant: {item.cantidad}
+                        Cant: {item.quantity}
                       </Text>
                     </View>
                     <Text
@@ -67,7 +76,7 @@ export function Stock() {
                       numberOfLines={1}
                       ellipsizeMode='tail'
                     >
-                      {item.descripcion}
+                      {item.description}
                     </Text>
                   </View>
                 </TouchableOpacity>

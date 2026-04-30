@@ -9,33 +9,55 @@ import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 interface Product {
-  id: string
-  nombre: string
-  descripcion: string
-  cantidad: number
+  name: string
+  description: string
+  quantity: number
+  category: string
 }
 
 export function AddProduct() {
   const navigation = useNavigation()
   const [product, setProduct] = useState<Product>({
-    id: '',
-    nombre: '',
-    descripcion: '',
-    cantidad: 0,
+    name: '',
+    description: '',
+    quantity: 0,
+    category: 'General',
   })
 
-  const handleSubmit = () => {
-    if (!product.nombre || !product.descripcion || !product.cantidad) {
+  const handleSubmit = async () => {
+    if (!product.name || !product.description || !product.quantity) {
       alert('Necesitas completar todos los campos')
+
       navigation.goBack()
       return
-    } else {
-      console.log(
-        'Tengo que darle un ID y agregar a la db esto: -------------------',
-      )
-      console.log(product)
+    }
+    try {
+      const response = await fetch('http://192.168.1.39:3000/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: product.name,
+          description: product.description,
+          quantity: Number(product.quantity),
+          category: product.category,
+        }),
+      })
+
+      if (response.ok) {
+        alert('Producto agregado con éxito')
+        navigation.goBack()
+      } else {
+        const errorDetail = await response.json()
+        console.log('Error al guardar en la base de datos', errorDetail)
+      }
+    } catch (error) {
+      console.error(error)
+      alert('No se pudo conectar con la notebook')
     }
   }
+
   return (
     <KeyboardAvoidingView className='flex-1'>
       <View className='flex-1 items-center justify-start bg-transparent/50'>
@@ -46,17 +68,17 @@ export function AddProduct() {
               autoCorrect={false}
               showSoftInputOnFocus={true}
               className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
-              onChangeText={(text) => setProduct({ ...product, nombre: text })}
-              value={product.nombre}
+              onChangeText={(text) => setProduct({ ...product, name: text })}
+              value={product.name}
             />
             <TextInput
               placeholder='Descripción'
               autoCorrect={false}
               className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
               onChangeText={(text) =>
-                setProduct({ ...product, descripcion: text })
+                setProduct({ ...product, description: text })
               }
-              value={product.descripcion}
+              value={product.description}
             />
             <TextInput
               placeholder='Cantidad'
@@ -64,13 +86,13 @@ export function AddProduct() {
               onChangeText={(text) => {
                 const valor = text === '' ? 0 : parseInt(text)
                 if (!isNaN(valor)) {
-                  setProduct({ ...product, cantidad: valor })
+                  setProduct({ ...product, quantity: valor })
                 }
               }}
               value={
-                product.cantidad === 0 && product.cantidad !== undefined
+                product.quantity === 0 && product.quantity !== undefined
                   ? ''
-                  : product.cantidad.toString()
+                  : product.quantity.toString()
               }
             />
           </View>
