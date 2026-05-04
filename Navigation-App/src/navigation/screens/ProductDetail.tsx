@@ -17,13 +17,17 @@ export const ProductDetail = ({ route }: any) => {
   const navigation = useNavigation()
   const { product } = route.params
 
+  const [localProduct, setLocalProduct] = useState<Product>(product)
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View className='w-full items-end p-4'>
           <TouchableOpacity
             onPress={() => {
-              ;(navigation.navigate as any)('EditProduct', { product })
+              ;(navigation.navigate as any)('EditProduct', {
+                product: localProduct,
+              })
             }}
           >
             <Feather name='edit' size={30} color='black' />
@@ -31,12 +35,65 @@ export const ProductDetail = ({ route }: any) => {
         </View>
       ),
     })
-  }, [navigation])
+  }, [navigation, localProduct])
+
+  const handleAdd = async () => {
+    let newQuantity = localProduct.quantity + 1
+
+    try {
+      const response = await fetch(
+        `http://192.168.1.39:3000/api/products/${product.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...localProduct,
+            quantity: Number(newQuantity),
+          }),
+        },
+      )
+      if (response.ok) {
+        setLocalProduct({ ...localProduct, quantity: newQuantity })
+      } else {
+        const errorDetail = await response.json()
+        console.log('Error al guardar en la base de datos', errorDetail)
+      }
+    } catch (error) {
+      console.error(error)
+      alert('No se pudo conectar con la notebook')
+    }
+  }
+
+  const handleSubstract = async () => {
+    if (localProduct.quantity <= 0) return
+    const newQuantity = localProduct.quantity - 1
+
+    try {
+      const response = await fetch(
+        `http://192.168.1.39:3000/api/products/${localProduct.id}`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...localProduct,
+            quantity: Number(newQuantity),
+          }),
+        },
+      )
+      if (response.ok) {
+        setLocalProduct({ ...localProduct, quantity: newQuantity })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
-    <SafeAreaView className='flex-1'>
-      <ScrollView className='flex-1'>
-        <View className='flex-1'>
+    <SafeAreaView className='flex-1 h-full'>
+      <ScrollView className='flex-1 h-full'>
+        <View className='flex-1 h-full'>
           {/* Aca va la imagen */}
           <View className='w-full items-center'>
             <View className='h-56 w-56 bg-gray-800 shadow-xl rounded-xl shadow-black items-center justify-center'>
@@ -47,16 +104,16 @@ export const ProductDetail = ({ route }: any) => {
           </View>
 
           {/*Aca va el resto del contenido */}
-          <View className='flex-1 justify-between py-10'>
+          <View className='flex-1 justify-evenly py-10'>
             {/*Conjunto de nombre y descripcion*/}
             <View className='items-center'>
               <Text className='color-gray-800 text-4xl font-bold text-center mb-5'>
-                {product.name}
+                {localProduct.name}
               </Text>
               <View className='w-full items-center'>
                 <View className='w-5/6 '>
                   <Text className='text-2xl text-center'>
-                    {product.description}
+                    {localProduct.description}
                   </Text>
                 </View>
               </View>
@@ -64,13 +121,13 @@ export const ProductDetail = ({ route }: any) => {
             {/* Conjunto para la cantidad */}
             <View className='items-center'>
               <View className='flex-row items-center bg-slate-300 rounded-full px-6 py-2'>
-                <TouchableOpacity onPress={() => console.log('Cantidad - 1')}>
+                <TouchableOpacity onPress={handleSubstract}>
                   <Text className='text-5xl'> - </Text>
                 </TouchableOpacity>
                 <Text className='text-4xl font-bold px-8'>
-                  {product.quantity}
+                  {localProduct.quantity}
                 </Text>
-                <TouchableOpacity onPress={() => console.log('Cantidad + 1')}>
+                <TouchableOpacity onPress={handleAdd}>
                   <Text className='text-5xl text-center rounded-full'> + </Text>
                 </TouchableOpacity>
               </View>
