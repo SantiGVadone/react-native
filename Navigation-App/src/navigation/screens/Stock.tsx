@@ -129,15 +129,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     flex: 1,
-    textDecorationColor: COLORS.oscuro,
+    color: COLORS.oscuro,
     marginRight: 12,
   },
   cardQuantity: {
-    textDecorationColor: '#4b5563',
+    color: '#4b5563',
     fontWeight: 200,
   },
   cardDescription: {
-    textDecorationColor: COLORS.gray,
+    color: COLORS.gray,
     marginTop: 4,
     fontSize: 14,
     fontWeight: 400,

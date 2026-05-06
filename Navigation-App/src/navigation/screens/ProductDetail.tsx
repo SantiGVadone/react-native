@@ -4,6 +4,7 @@ import Feather from '@expo/vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect, useState } from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
+import COLORS from '../../constants/colors'
 
 interface Product {
   id: number
@@ -21,7 +22,7 @@ export const ProductDetail = ({ route }: any) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <View className='w-full items-end p-4'>
+        <View style={styles.edit}>
           <TouchableOpacity
             onPress={() => {
               ;(navigation.navigate as any)('EditProduct', {
@@ -90,44 +91,45 @@ export const ProductDetail = ({ route }: any) => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View className='flex-1 justify-center'>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
           {/* Aca va la imagen */}
-          <View className='w-full items-center'>
-            <View className='h-56 w-56 bg-gray-800 shadow-xl rounded-xl shadow-black items-center justify-center'>
-              <Text className='color-white text-center'>
+          <View style={styles.imagePart}>
+            <View style={styles.imageContainer}>
+              <Text style={{ color: 'white', textAlign: 'center' }}>
                 Aca va a ir la Imagen del producto cargada desde la camara
               </Text>
             </View>
           </View>
 
           {/*Aca va el resto del contenido */}
-          <View className='flex-1'>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'space-between',
+            }}
+          >
             {/*Conjunto de nombre y descripcion*/}
-            <View className='items-center'>
-              <Text className='color-gray-800 text-4xl font-bold text-center mb-5'>
-                {localProduct.name}
-              </Text>
-              <View className='w-full items-center'>
-                <View className='w-5/6 '>
-                  <Text className='text-2xl text-center'>
-                    {localProduct.description}
-                  </Text>
-                </View>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={styles.productName}>{localProduct.name}</Text>
+              <View style={{ width: '100%', alignItems: 'center' }}>
+                <Text style={styles.productDescription}>
+                  {localProduct.description}
+                </Text>
               </View>
             </View>
             {/* Conjunto para la cantidad */}
-            <View className='items-center'>
-              <View className='flex-row items-center bg-slate-300 rounded-full px-6 py-2'>
+            <View style={{ alignItems: 'center', margin: 20 }}>
+              <View style={styles.fastControlsContainer}>
                 <TouchableOpacity onPress={handleSubstract}>
-                  <Text className='text-5xl'> - </Text>
+                  <Feather name='minus' size={30} color='black' />
                 </TouchableOpacity>
-                <Text className='text-4xl font-bold px-8'>
+                <Text style={styles.fastControlsQuantity}>
                   {localProduct.quantity}
                 </Text>
                 <TouchableOpacity onPress={handleAdd}>
-                  <Text className='text-5xl text-center rounded-full'> + </Text>
+                  <Feather name='plus' size={30} color='black' />
                 </TouchableOpacity>
               </View>
             </View>
@@ -137,3 +139,57 @@ export const ProductDetail = ({ route }: any) => {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  edit: {
+    width: '100%',
+    alignItems: 'flex-end',
+    padding: 15,
+    paddingVertical: 0,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  imagePart: {
+    alignItems: 'center',
+    margin: 10,
+  },
+  imageContainer: {
+    height: 200,
+    width: 200,
+    backgroundColor: COLORS.oscuro,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    margin: 0,
+  },
+  productName: {
+    color: COLORS.oscuro,
+    fontSize: 36,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  productDescription: {
+    fontSize: 24,
+    textAlign: 'center',
+    width: '83%',
+  },
+  fastControlsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.softGray,
+    borderRadius: 99999,
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+  },
+  fastControlsQuantity: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingHorizontal: 18,
+  },
+})
