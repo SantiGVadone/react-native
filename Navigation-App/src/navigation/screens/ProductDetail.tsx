@@ -113,11 +113,9 @@ export const ProductDetail = ({ route }: any) => {
             {/*Conjunto de nombre y descripcion*/}
             <View style={{ alignItems: 'center' }}>
               <Text style={styles.productName}>{localProduct.name}</Text>
-              <View style={{ width: '100%', alignItems: 'center' }}>
-                <Text style={styles.productDescription}>
-                  {localProduct.description}
-                </Text>
-              </View>
+              <Text style={styles.productDescription}>
+                {localProduct.description}
+              </Text>
             </View>
             {/* Conjunto para la cantidad */}
             <View style={{ alignItems: 'center', margin: 20 }}>
@@ -175,7 +173,8 @@ const styles = StyleSheet.create({
   productDescription: {
     fontSize: 24,
     textAlign: 'center',
-    width: '83%',
+    alignItems: 'center',
+    width: '60%',
   },
   fastControlsContainer: {
     flexDirection: 'row',
