@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { useStock } from '../../hooks/useStock'
 
 interface Product {
   name: string
@@ -23,40 +24,7 @@ export function AddProduct() {
     quantity: 0,
     category: 'General',
   })
-
-  const handleSubmit = async () => {
-    if (!product.name || !product.description || !product.quantity) {
-      alert('Necesitas completar todos los campos')
-
-      navigation.goBack()
-      return
-    }
-    try {
-      const response = await fetch('http://192.168.1.39:3000/api/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: product.name,
-          description: product.description,
-          quantity: Number(product.quantity),
-          category: product.category,
-        }),
-      })
-
-      if (response.ok) {
-        alert('Producto agregado con éxito')
-        navigation.goBack()
-      } else {
-        const errorDetail = await response.json()
-        console.log('Error al guardar en la base de datos', errorDetail)
-      }
-    } catch (error) {
-      console.error(error)
-      alert('No se pudo conectar con la notebook')
-    }
-  }
+  const { addProduct } = useStock()
 
   return (
     <KeyboardAvoidingView className='flex-1'>
@@ -98,7 +66,9 @@ export function AddProduct() {
           </View>
           <View className='flex-row justify-evenly'>
             <TouchableOpacity
-              onPress={handleSubmit}
+              onPress={() => {
+                addProduct(product)
+              }}
               className='bg-blue-400 rounded-3xl m-3'
             >
               <Text className='color-gray-800 font-bold text-2xl p-4 text-center'>

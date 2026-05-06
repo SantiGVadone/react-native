@@ -10,9 +10,10 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { useStock } from '../../hooks/useStock'
+import AntDesign from '@expo/vector-icons/AntDesign'
 
 interface Product {
-  id: string
+  id: number
   name: string
   description: string
   quantity: number
@@ -21,15 +22,15 @@ interface Product {
 
 export function Stock() {
   const navigation = useNavigation<any>() //aca en ves del any tendria que ir un <NativeStackNavigationProp<RootStackParamList>> donde el RootStackParamList seria un type creado e importado con los datos que va a recibir la pantalla profile
-  const { stock, loading, error, removeProduct, refresh } = useStock()
+  const { stock, loading, removeProduct, refresh } = useStock()
 
-  const renderRightActions = (id: string) => {
+  const renderRightActions = (id: number) => {
     return (
       <TouchableOpacity
         onPress={() => removeProduct(id)}
         className='bg-red-500 justify-center items-center w-24 m-1 rounded-r-lg'
       >
-        <Text className='text-white font-bold'>Eliminar</Text>
+        <AntDesign name='delete' size={28} color='white' />
       </TouchableOpacity>
     )
   }

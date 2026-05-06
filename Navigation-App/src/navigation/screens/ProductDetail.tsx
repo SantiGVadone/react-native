@@ -16,7 +16,6 @@ interface Product {
 export const ProductDetail = ({ route }: any) => {
   const navigation = useNavigation()
   const { product } = route.params
-
   const [localProduct, setLocalProduct] = useState<Product>(product)
 
   useLayoutEffect(() => {
@@ -91,20 +90,20 @@ export const ProductDetail = ({ route }: any) => {
   }
 
   return (
-    <SafeAreaView className='flex-1 h-full'>
-      <ScrollView className='flex-1 h-full'>
-        <View className='flex-1 h-full'>
+    <SafeAreaView>
+      <ScrollView>
+        <View className='flex-1 justify-evenly'>
           {/* Aca va la imagen */}
           <View className='w-full items-center'>
             <View className='h-56 w-56 bg-gray-800 shadow-xl rounded-xl shadow-black items-center justify-center'>
               <Text className='color-white text-center'>
-                Aca va a ir la Imagen
+                Aca va a ir la Imagen del producto cargada desde la camara
               </Text>
             </View>
           </View>
 
           {/*Aca va el resto del contenido */}
-          <View className='flex-1 justify-evenly py-10'>
+          <View className='flex-1 justify-evenly'>
             {/*Conjunto de nombre y descripcion*/}
             <View className='items-center'>
               <Text className='color-gray-800 text-4xl font-bold text-center mb-5'>

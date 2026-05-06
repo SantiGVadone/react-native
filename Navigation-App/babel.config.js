@@ -3,8 +3,10 @@ module.exports = function (api) {
   return {
     presets: [
       ['babel-preset-expo', { jsxImportSource: 'nativewind' }],
-      'nativewind/babel',
+      'nativewind/babel', // Algunos sugieren quitar este si usas el de arriba, pero v4 suele pedirlo.
     ],
-    plugins: ['react-native-reanimated/plugin'], // SIEMPRE ÚLTIMO
+    plugins: [
+      'react-native-reanimated/plugin', // SIEMPRE ÚLTIMO
+    ],
   }
 }

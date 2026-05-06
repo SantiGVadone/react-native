@@ -29,9 +29,11 @@
 - ✅ Que la app no mande un console.log(), sino que realmente Funcione el UPDATE
 - ✅ Generar ID's para los productos, aunquesea en orden numerico por el momento
 - ✅ Que funcionen los botones de +1 y -1 para la cantidad en la pantalla de ProductDetail
-- Que la pantalla de Stock se actualice siempre que se vuelve desde ProductDetail
+- ✅ Que la pantalla de Stock se actualice al crear un producto
+- ✅ Que la pantalla de Stock se actualice al editar un producto
+- ✅ Solucionar los formatos responsive con los nombres largos y las descripciones largas
+- Que la pantalla de Stock se actualice al volver a esta
 - Solucionar el formato del boton de eliminar dentro de la pantalla de Stock
-- Solucionar los formatos responsive con los nombres largos y las descripciones largas
 - CREAR la primera APK para android
 
 # Futura version 1.1

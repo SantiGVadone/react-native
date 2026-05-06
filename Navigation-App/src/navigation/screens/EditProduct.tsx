@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { useStock } from '../../hooks/useStock'
 
 interface Product {
   id: number
@@ -20,37 +21,8 @@ export function EditProduct({ route }: any) {
   const { product } = route.params
   const [newProduct, setNewProduct] = useState(product)
   const navigation = useNavigation()
+  const { editProduct } = useStock()
 
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch(
-        `http://192.168.1.39:3000/api/products/${product.id}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: product.name,
-            description: product.description,
-            quantity: Number(product.quantity),
-            category: product.category,
-          }),
-        },
-      )
-      if (response.ok) {
-        alert('Producto editado con éxito')
-        navigation.goBack()
-      } else {
-        const errorDetail = await response.json()
-        console.log('Error al guardar en la base de datos', errorDetail)
-      }
-    } catch (error) {
-      console.error(error)
-      alert('No se pudo conectar con la notebook')
-    }
-    navigation.goBack()
-  }
   return (
     <KeyboardAvoidingView className='flex-1'>
       <View className='flex-1 items-center justify-start bg-transparent/50'>
@@ -84,16 +56,14 @@ export function EditProduct({ route }: any) {
                   setNewProduct({ ...newProduct, quantity: valor })
                 }
               }}
-              value={
-                newProduct.quantity === 0 && newProduct.quantity !== undefined
-                  ? ''
-                  : newProduct.quantity
-              }
+              value={newProduct.quantity.toString()}
             />
           </View>
           <View className='mt-4 flex-row justify-evenly'>
             <TouchableOpacity
-              onPress={handleSubmit}
+              onPress={() => {
+                editProduct(newProduct)
+              }}
               className='bg-blue-400 rounded-3xl m-2 shadow-xl shadow-black'
             >
               <Text className='color-gray-800 font-bold text-2xl p-4 text-center'>
