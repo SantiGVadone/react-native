@@ -5,20 +5,14 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  StyleSheet,
 } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { useStock } from '../../hooks/useStock'
 import AntDesign from '@expo/vector-icons/AntDesign'
-
-interface Product {
-  id: number
-  name: string
-  description: string
-  quantity: number
-  category: string
-}
+import COLORS from '../../constants/colors'
 
 export function Stock() {
   const navigation = useNavigation<any>() //aca en ves del any tendria que ir un <NativeStackNavigationProp<RootStackParamList>> donde el RootStackParamList seria un type creado e importado con los datos que va a recibir la pantalla profile
@@ -28,7 +22,7 @@ export function Stock() {
     return (
       <TouchableOpacity
         onPress={() => removeProduct(id)}
-        className='bg-red-500 justify-center items-center w-24 m-1 rounded-r-lg'
+        style={styles.deleteBotton}
       >
         <AntDesign name='delete' size={28} color='white' />
       </TouchableOpacity>
@@ -36,16 +30,16 @@ export function Stock() {
   }
   if (loading) {
     return (
-      <View className='flex-1 justify-center items-center bg-gray-200'>
+      <View style={styles.loading}>
         <ActivityIndicator size='large' color='#3b82f6' />
       </View>
     )
   }
   return (
-    <SafeAreaView className='flex-1 bg-gray-200'>
-      <View className='flex-1 bg-gray-200 items-center'>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
         <StatusBar style='dark' />
-        <View className=' flex-1 w-full'>
+        <View style={styles.list}>
           <FlatList
             data={stock}
             onRefresh={refresh}
@@ -59,21 +53,21 @@ export function Stock() {
                     navigation.navigate('ProductDetail', { product: item })
                   }
                 >
-                  <View className='bg-white p-4 m-1 rounded-lg shadow-sm border-l-4 border-gray-900'>
-                    <View className='flex-row justify-between items-center'>
+                  <View style={styles.cards}>
+                    <View style={styles.nameNquantity}>
                       <Text
-                        className='text-xl font-bold flex-1 text-gray-800 mr-3'
+                        style={styles.cardTitle}
                         numberOfLines={1} //hace que el texto no ocupe mas de una linea
                         ellipsizeMode='tail'
                       >
                         {item.name}
                       </Text>
-                      <Text className='text-gray-600 font-mono'>
+                      <Text style={styles.cardQuantity}>
                         Cant: {item.quantity}
                       </Text>
                     </View>
                     <Text
-                      className='text-gray-500 mt-1 text-sm'
+                      style={styles.cardDescription}
                       numberOfLines={1}
                       ellipsizeMode='tail'
                     >
@@ -86,20 +80,99 @@ export function Stock() {
           />
         </View>
 
-        <View className='absolute bottom-6 right-6 w-fit rounded-full'>
+        <View style={styles.containerAddButton}>
           <TouchableOpacity
             activeOpacity={0.7}
-            className='bg-blue-500 rounded-full'
+            style={styles.addButton}
             onPress={() => {
               navigation.navigate('AddProduct')
             }}
           >
-            <Text className='color-white text-center text-5xl my-2 mx-5'>
-              +
-            </Text>
+            <Text style={styles.addButtonText}>+</Text>
           </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: COLORS.bg,
+  },
+  container: {
+    flex: 1,
+
+    width: '100%',
+    backgroundColor: COLORS.bg,
+    alignItems: 'center',
+  },
+  list: {
+    flex: 1,
+    width: '100%',
+  },
+  cards: {
+    backgroundColor: 'white',
+    padding: 16,
+    margin: 4,
+    borderRadius: 8,
+    borderLeftWidth: 4,
+    borderColor: '#111827',
+  },
+  nameNquantity: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    flex: 1,
+    textDecorationColor: COLORS.oscuro,
+    marginRight: 12,
+  },
+  cardQuantity: {
+    textDecorationColor: '#4b5563',
+    fontWeight: 200,
+  },
+  cardDescription: {
+    textDecorationColor: COLORS.gray,
+    marginTop: 4,
+    fontSize: 14,
+    fontWeight: 400,
+  },
+  containerAddButton: {
+    position: 'absolute',
+    bottom: 24,
+    right: 24,
+    borderRadius: 9999999,
+  },
+  addButton: {
+    backgroundColor: COLORS.blue,
+    borderRadius: 99999,
+  },
+  addButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 48,
+    marginVertical: 0,
+    marginHorizontal: 20,
+  },
+  deleteBotton: {
+    backgroundColor: COLORS.red,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 95,
+    margin: 5,
+    marginLeft: 0,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.bg,
+  },
+})

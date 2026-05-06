@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Feather from '@expo/vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 
 interface Product {
   id: number
@@ -92,7 +92,7 @@ export const ProductDetail = ({ route }: any) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View className='flex-1 justify-evenly'>
+        <View className='flex-1 justify-center'>
           {/* Aca va la imagen */}
           <View className='w-full items-center'>
             <View className='h-56 w-56 bg-gray-800 shadow-xl rounded-xl shadow-black items-center justify-center'>
@@ -103,7 +103,7 @@ export const ProductDetail = ({ route }: any) => {
           </View>
 
           {/*Aca va el resto del contenido */}
-          <View className='flex-1 justify-evenly'>
+          <View className='flex-1'>
             {/*Conjunto de nombre y descripcion*/}
             <View className='items-center'>
               <Text className='color-gray-800 text-4xl font-bold text-center mb-5'>
