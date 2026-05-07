@@ -4,10 +4,12 @@ import {
   TouchableOpacity,
   Text,
   KeyboardAvoidingView,
+  StyleSheet,
 } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useStock } from '../../hooks/useStock'
+import COLORS from '../../constants/colors'
 
 interface Product {
   id: number
@@ -24,15 +26,21 @@ export function EditProduct({ route }: any) {
   const { editProduct } = useStock()
 
   return (
-    <KeyboardAvoidingView className='flex-1'>
-      <View className='flex-1 items-center justify-start bg-transparent/50'>
-        <View className='bg-white h-1/2 w-3/4 mt-36 border-2 border-black shadow-black shadow-2xl rounded-3xl p-5  flex items-center align-middle'>
-          <View className='flex-1 items-center justify-evenly'>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.whitePage}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+            }}
+          >
             <TextInput
               placeholder='Nombre'
               autoCorrect={false}
               showSoftInputOnFocus={true}
-              className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
+              style={styles.input}
               onChangeText={(text) =>
                 setNewProduct({ ...newProduct, name: text })
               }
@@ -41,7 +49,7 @@ export function EditProduct({ route }: any) {
             <TextInput
               placeholder='Descripción'
               autoCorrect={false}
-              className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
+              style={styles.input}
               onChangeText={(text) =>
                 setNewProduct({ ...newProduct, description: text })
               }
@@ -49,7 +57,7 @@ export function EditProduct({ route }: any) {
             />
             <TextInput
               placeholder='Cantidad'
-              className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
+              style={styles.input}
               onChangeText={(text) => {
                 const valor = text === '' ? 0 : parseInt(text)
                 if (!isNaN(valor)) {
@@ -59,26 +67,32 @@ export function EditProduct({ route }: any) {
               value={newProduct.quantity.toString()}
             />
           </View>
-          <View className='mt-4 flex-row justify-evenly'>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}
+          >
             <TouchableOpacity
               onPress={() => {
                 editProduct(newProduct)
               }}
-              className='bg-blue-400 rounded-3xl m-2 shadow-xl shadow-black'
+              style={{
+                backgroundColor: COLORS.blue,
+                borderRadius: 24,
+                margin: 12,
+              }}
             >
-              <Text className='color-gray-800 font-bold text-2xl p-4 text-center'>
-                Editar
-              </Text>
+              <Text style={styles.buttonText}>Editar</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className='bg-red-500 rounded-3xl m-2 shadow-xl shadow-black'
+              style={{
+                backgroundColor: '#ef4444bf',
+                borderRadius: 24,
+                margin: 12,
+              }}
               onPress={() => {
                 navigation.goBack()
               }}
             >
-              <Text className='color-gray-800 font-bold text-2xl p-4 text-center'>
-                Cancelar
-              </Text>
+              <Text style={styles.buttonText}>Cancelar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -86,3 +100,41 @@ export function EditProduct({ route }: any) {
     </KeyboardAvoidingView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: COLORS.transparent,
+  },
+  input: {
+    height: 64,
+    margin: 8,
+    borderBottomWidth: 1,
+    textAlign: 'center',
+    fontSize: 30,
+    maxWidth: '75%',
+    overflow: 'scroll',
+  },
+  whitePage: {
+    backgroundColor: 'white',
+    height: '50%',
+    width: '75%',
+    marginTop: 144,
+    borderWidth: 2,
+    borderColor: '#000',
+    borderRadius: 24,
+    padding: 20,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: COLORS.oscuro,
+    fontWeight: 'bold',
+    fontSize: 24,
+    padding: 16,
+    textAlign: 'center',
+  },
+})
