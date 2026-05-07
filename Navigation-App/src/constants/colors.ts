@@ -5,6 +5,7 @@ const COLORS = {
   red: '#ef4444',
   gray: '#6b7280',
   softGray: '#cbd5e1',
+  transparent: 'rgb(0 0 0 / 0.5)',
 }
 
 export default COLORS

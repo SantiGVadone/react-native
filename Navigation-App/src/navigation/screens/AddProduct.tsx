@@ -4,10 +4,12 @@ import {
   TouchableOpacity,
   Text,
   KeyboardAvoidingView,
+  StyleSheet,
 } from 'react-native'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useStock } from '../../hooks/useStock'
+import COLORS from '../../constants/colors'
 
 interface Product {
   name: string
@@ -27,22 +29,28 @@ export function AddProduct() {
   const { addProduct } = useStock()
 
   return (
-    <KeyboardAvoidingView className='flex-1'>
-      <View className='flex-1 items-center justify-start bg-transparent/50'>
-        <View className='bg-white h-1/2 w-3/4 mt-36 border-2 border-black shadow-black shadow-2xl rounded-3xl p-5  flex items-center align-middle'>
-          <View className='flex-1 items-center justify-evenly'>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.whitePage}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+            }}
+          >
             <TextInput
               placeholder='Nombre'
               autoCorrect={false}
               showSoftInputOnFocus={true}
-              className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
+              style={styles.input}
               onChangeText={(text) => setProduct({ ...product, name: text })}
               value={product.name}
             />
             <TextInput
               placeholder='Descripción'
               autoCorrect={false}
-              className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
+              style={styles.input}
               onChangeText={(text) =>
                 setProduct({ ...product, description: text })
               }
@@ -50,7 +58,7 @@ export function AddProduct() {
             />
             <TextInput
               placeholder='Cantidad'
-              className='h-16 m-2 border-b-hairline text-center text-3xl max-w-3/4 overflow-x-scroll'
+              style={styles.input}
               onChangeText={(text) => {
                 const valor = text === '' ? 0 : parseInt(text)
                 if (!isNaN(valor)) {
@@ -64,26 +72,32 @@ export function AddProduct() {
               }
             />
           </View>
-          <View className='flex-row justify-evenly'>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}
+          >
             <TouchableOpacity
               onPress={() => {
                 addProduct(product)
               }}
-              className='bg-blue-400 rounded-3xl m-3'
+              style={{
+                backgroundColor: COLORS.blue,
+                borderRadius: 24,
+                margin: 12,
+              }}
             >
-              <Text className='color-gray-800 font-bold text-2xl p-4 text-center'>
-                Agregar
-              </Text>
+              <Text style={styles.buttonText}>Agregar</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className='bg-red-500 rounded-3xl m-3'
+              style={{
+                backgroundColor: '#ef4444bf',
+                borderRadius: 24,
+                margin: 12,
+              }}
               onPress={() => {
                 navigation.goBack()
               }}
             >
-              <Text className='color-gray-800 font-bold text-2xl p-4 text-center'>
-                Cancelar
-              </Text>
+              <Text style={styles.buttonText}>Cancelar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -91,3 +105,41 @@ export function AddProduct() {
     </KeyboardAvoidingView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: COLORS.transparent,
+  },
+  input: {
+    height: 64,
+    margin: 8,
+    borderBottomWidth: 1,
+    textAlign: 'center',
+    fontSize: 30,
+    maxWidth: '75%',
+    overflow: 'scroll',
+  },
+  whitePage: {
+    backgroundColor: 'white',
+    height: '50%',
+    width: '75%',
+    marginTop: 144,
+    borderWidth: 2,
+    borderColor: '#000',
+    borderRadius: 24,
+    padding: 20,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: COLORS.oscuro,
+    fontWeight: 'bold',
+    fontSize: 24,
+    padding: 16,
+    textAlign: 'center',
+  },
+})
