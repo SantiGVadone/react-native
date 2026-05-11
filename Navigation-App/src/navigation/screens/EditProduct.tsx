@@ -71,20 +71,8 @@ export function EditProduct({ route }: any) {
             style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}
           >
             <TouchableOpacity
-              onPress={() => {
-                editProduct(newProduct)
-              }}
               style={{
-                backgroundColor: COLORS.blue,
-                borderRadius: 24,
-                margin: 12,
-              }}
-            >
-              <Text style={styles.buttonText}>Editar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#ef4444bf',
+                backgroundColor: '#ff000005',
                 borderRadius: 24,
                 margin: 12,
               }}
@@ -92,7 +80,21 @@ export function EditProduct({ route }: any) {
                 navigation.goBack()
               }}
             >
-              <Text style={styles.buttonText}>Cancelar</Text>
+              <Text style={styles.buttonTextCancel}>Cancelar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                editProduct(newProduct)
+              }}
+              style={{
+                backgroundColor: COLORS.blue,
+                borderRadius: 24,
+                margin: 12,
+                paddingHorizontal: 10,
+                elevation: 3,
+              }}
+            >
+              <Text style={styles.buttonTextEdit}>Editar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -122,19 +124,32 @@ const styles = StyleSheet.create({
     height: '50%',
     width: '75%',
     marginTop: 144,
-    borderWidth: 2,
-    borderColor: '#000',
+    borderWidth: 1,
+    borderColor: '#00000075',
     borderRadius: 24,
     padding: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    elevation: 3,
   },
-  buttonText: {
-    color: COLORS.oscuro,
+  buttonTextEdit: {
+    color: 'white',
     fontWeight: 'bold',
     fontSize: 24,
     padding: 16,
     textAlign: 'center',
+    textShadowColor: 'rgba(0,0,0, 0.50)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 1,
+  },
+  buttonTextCancel: {
+    color: '#ff5353',
+    fontWeight: 'bold',
+    fontSize: 22,
+    padding: 16,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+    elevation: 3,
   },
 })

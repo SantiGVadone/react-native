@@ -76,20 +76,8 @@ export function AddProduct() {
             style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}
           >
             <TouchableOpacity
-              onPress={() => {
-                addProduct(product)
-              }}
               style={{
-                backgroundColor: COLORS.blue,
-                borderRadius: 24,
-                margin: 12,
-              }}
-            >
-              <Text style={styles.buttonText}>Agregar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#ef4444bf',
+                backgroundColor: '#ff000005',
                 borderRadius: 24,
                 margin: 12,
               }}
@@ -97,7 +85,20 @@ export function AddProduct() {
                 navigation.goBack()
               }}
             >
-              <Text style={styles.buttonText}>Cancelar</Text>
+              <Text style={styles.buttonTextDelete}>Cancelar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                addProduct(product)
+              }}
+              style={{
+                backgroundColor: COLORS.blue,
+                borderRadius: 24,
+                margin: 12,
+                elevation: 3,
+              }}
+            >
+              <Text style={styles.buttonTextAdd}>Agregar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -127,19 +128,32 @@ const styles = StyleSheet.create({
     height: '50%',
     width: '75%',
     marginTop: 144,
-    borderWidth: 2,
-    borderColor: '#000',
+    borderWidth: 1,
+    borderColor: '#00000075',
     borderRadius: 24,
     padding: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    elevation: 3,
   },
-  buttonText: {
-    color: COLORS.oscuro,
+  buttonTextAdd: {
+    color: 'white',
     fontWeight: 'bold',
     fontSize: 24,
     padding: 16,
     textAlign: 'center',
+    textShadowColor: 'rgba(0,0,0, 0.50)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 1,
+  },
+  buttonTextDelete: {
+    color: '#ff5353',
+    fontWeight: 'bold',
+    fontSize: 22,
+    padding: 16,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+    elevation: 3,
   },
 })

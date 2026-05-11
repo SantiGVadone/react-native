@@ -48,13 +48,12 @@ export function Stock() {
       <View style={styles.container}>
         <StatusBar style='dark' />
         <View style={styles.searchContainer}>
-          <View style={{ width: 40 }}></View>
+          <EvilIcons name='search' size={38} color='black' />
           <TextInput
             style={styles.inputSearch} //forma del input
             placeholder='Buscar producto...'
             onChangeText={(text) => setSearch(text)}
           />
-          <EvilIcons name='search' size={40} color='black' />
         </View>
         <View style={styles.list}>
           <FlatList
@@ -119,20 +118,24 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bg,
   },
   searchContainer: {
+    marginTop: 5,
     top: 0,
-    width: '100%',
-    justifyContent: 'center',
+    width: '90%',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 35,
+    borderWidth: 1,
+    borderColor: COLORS.softGray,
+    elevation: 3,
   },
   inputSearch: {
     textAlign: 'center',
-    fontSize: 22,
-    maxWidth: '75%',
+    fontSize: 20,
+    maxWidth: '80%',
     overflow: 'scroll',
-    backgroundColor: 'white',
-    borderRadius: 20,
-    minWidth: '50%',
+    minWidth: 'auto',
   },
   container: {
     flex: 1,
@@ -152,6 +155,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderLeftWidth: 4,
     borderColor: COLORS.darkBlue,
+    elevation: 3,
   },
   nameNquantity: {
     flexDirection: 'row',
@@ -184,6 +188,7 @@ const styles = StyleSheet.create({
   addButton: {
     backgroundColor: COLORS.blue,
     borderRadius: 99999,
+    elevation: 3,
   },
   addButtonText: {
     color: 'white',
