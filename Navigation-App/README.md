@@ -32,19 +32,20 @@
 - ✅ Que la pantalla de Stock se actualice al crear un producto
 - ✅ Que la pantalla de Stock se actualice al editar un producto
 - ✅ Solucionar los formatos responsive con los nombres largos y las descripciones largas
-- CREAR la primera APK para android
 
 * - Para crear la primera APP de Android tengo que:
     - Hacer un Logo que me guste.
     - Ver en que DB voy a dejar todo, ya que la APP va a quedar en uso.
     - Ver si la voy a seguir hosteando en la notebook o si pago un hosteo.
 
+- CREAR la primera APK para android
+
 # Futura version 1.1
 
 - ✅ Agregar un motor de busqueda en la pantalla de Stock
 - Solucionar el formato del boton de eliminar dentro de la pantalla de Stock
 - Que la pantalla de Stock se actualice al volver a esta
-- Agregar el tema de las imagenes, sque se puedan cargar fotos de cada Producto
+- Agregar el tema de las imagenes, que se puedan cargar fotos de cada Producto
 
 # Futura version 1.2
 
