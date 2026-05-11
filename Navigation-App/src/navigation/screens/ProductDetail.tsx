@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     margin: 0,
+    elevation: 4,
   },
   productName: {
     color: COLORS.oscuro,
@@ -169,6 +170,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+    textShadowColor: COLORS.softGray,
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 2,
   },
   productDescription: {
     fontSize: 24,
@@ -183,6 +187,7 @@ const styles = StyleSheet.create({
     borderRadius: 99999,
     paddingHorizontal: 24,
     paddingVertical: 8,
+    elevation: 3,
   },
   fastControlsQuantity: {
     textAlign: 'center',
