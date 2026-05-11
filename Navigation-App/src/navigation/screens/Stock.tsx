@@ -131,11 +131,11 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   inputSearch: {
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 20,
     maxWidth: '80%',
     overflow: 'scroll',
-    minWidth: 'auto',
+    minWidth: '80%',
   },
   container: {
     flex: 1,
